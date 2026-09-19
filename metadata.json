@@ -1,0 +1,7 @@
+{
+  "name": "LongForm Studio",
+  "description": "Long-form AI video production pipeline with consistent characters, locations, and styles across 30+ minute films using the Project Bible as single source of truth.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
