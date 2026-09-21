@@ -10,13 +10,20 @@ interface Props {
 }
 
 export const PhaseProgressBar: React.FC<Props> = ({ t, phaseProgress, onPhaseClick }) => {
+  /** A phase is active while it is the first one not yet finished. */
+  const statusFor = (percent: number, previousPercent: number): 'complete' | 'active' | 'pending' => {
+    if (percent >= 100) return 'complete';
+    if (previousPercent >= 100 || percent > 0) return 'active';
+    return 'pending';
+  };
+
   const phases = [
     {
       num: 1,
       title: t.phase1Title,
       desc: t.phase1Desc,
       percent: phaseProgress.phase1,
-      status: 'active', // Phase 1 is delivered & operational
+      status: statusFor(phaseProgress.phase1, 100),
       color: 'from-amber-500 to-amber-600',
     },
     {
@@ -24,7 +31,7 @@ export const PhaseProgressBar: React.FC<Props> = ({ t, phaseProgress, onPhaseCli
       title: t.phase2Title,
       desc: t.phase2Desc,
       percent: phaseProgress.phase2,
-      status: 'pending',
+      status: statusFor(phaseProgress.phase2, phaseProgress.phase1),
       color: 'from-blue-500 to-blue-600',
     },
     {
@@ -32,7 +39,7 @@ export const PhaseProgressBar: React.FC<Props> = ({ t, phaseProgress, onPhaseCli
       title: t.phase3Title,
       desc: t.phase3Desc,
       percent: phaseProgress.phase3,
-      status: 'pending',
+      status: statusFor(phaseProgress.phase3, phaseProgress.phase2),
       color: 'from-purple-500 to-purple-600',
     },
     {
@@ -40,10 +47,15 @@ export const PhaseProgressBar: React.FC<Props> = ({ t, phaseProgress, onPhaseCli
       title: t.phase4Title,
       desc: t.phase4Desc,
       percent: phaseProgress.phase4,
-      status: 'pending',
+      status: statusFor(phaseProgress.phase4, phaseProgress.phase3),
       color: 'from-emerald-500 to-emerald-600',
     },
   ];
+
+  const overallPercent = Math.round(
+    (phaseProgress.phase1 + phaseProgress.phase2 + phaseProgress.phase3 + phaseProgress.phase4) / 4
+  );
+  const completedPhases = phases.filter((p) => p.percent >= 100).length;
 
   return (
     <div className="bg-neutral-900 border-b border-neutral-800 py-3.5 px-4 sm:px-6 lg:px-8">
@@ -55,7 +67,7 @@ export const PhaseProgressBar: React.FC<Props> = ({ t, phaseProgress, onPhaseCli
               {t.phasesOverview}
             </h3>
             <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30">
-              Phase 1 Live &bull; 100%
+              {overallPercent}% &bull; {completedPhases}/4 {t.completed}
             </span>
           </div>
 
@@ -71,18 +83,22 @@ export const PhaseProgressBar: React.FC<Props> = ({ t, phaseProgress, onPhaseCli
             <div
               key={phase.num}
               className={`p-2.5 rounded-xl border transition ${
-                phase.status === 'active'
-                  ? 'bg-neutral-800/90 border-amber-500/50 ring-1 ring-amber-500/20 shadow-md shadow-amber-950/20'
-                  : 'bg-neutral-900/60 border-neutral-800 hover:border-neutral-700 opacity-75'
+                phase.status === 'complete'
+                  ? 'bg-neutral-800/70 border-emerald-500/40'
+                  : phase.status === 'active'
+                    ? 'bg-neutral-800/90 border-amber-500/50 ring-1 ring-amber-500/20 shadow-md shadow-amber-950/20'
+                    : 'bg-neutral-900/60 border-neutral-800 hover:border-neutral-700 opacity-75'
               }`}
             >
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center gap-1.5">
                   <span
                     className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
-                      phase.status === 'active'
-                        ? 'bg-amber-500 text-neutral-950'
-                        : 'bg-neutral-800 text-neutral-400 border border-neutral-700'
+                      phase.status === 'complete'
+                        ? 'bg-emerald-500 text-neutral-950'
+                        : phase.status === 'active'
+                          ? 'bg-amber-500 text-neutral-950'
+                          : 'bg-neutral-800 text-neutral-400 border border-neutral-700'
                     }`}
                   >
                     {phase.num}

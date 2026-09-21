@@ -136,6 +136,75 @@ export interface Translations {
   videoProvider: string;
   apiKeyNotice: string;
   phaseApprovalNote: string;
+  // Pipeline runner
+  pipelineTitle: string;
+  pipelineDesc: string;
+  runPipeline: string;
+  runPipelineFull: string;
+  runningPipeline: string;
+  cancelPipeline: string;
+  forceRerun: string;
+  skipVideoStep: string;
+  pipelineIdle: string;
+  pipelineCompleted: string;
+  pipelineFailedLabel: string;
+  pipelineCancelledLabel: string;
+  pipelineBudgetStop: string;
+  offlineModeBanner: string;
+  activityLog: string;
+  // References module
+  referencesTitle: string;
+  referencesDesc: string;
+  generateReference: string;
+  generateAllReferences: string;
+  noReferenceYet: string;
+  referenceApproved: string;
+  referencePlaceholder: string;
+  // Breakdown module
+  breakdownTitle: string;
+  breakdownDesc: string;
+  generateBreakdownBtn: string;
+  keyframesCount: string;
+  shotsCount: string;
+  cameraLabel: string;
+  motionLabel: string;
+  audioSliceLabel: string;
+  startFrameLabel: string;
+  endFrameLabel: string;
+  breakdownEmpty: string;
+  // Images module
+  imagesTitle: string;
+  imagesDesc: string;
+  generateKeyframeBtn: string;
+  regenerateBtn: string;
+  imagesEmpty: string;
+  promptLabel: string;
+  referencesUsed: string;
+  // Video module
+  videoTitle: string;
+  videoDesc: string;
+  generateShotVideoBtn: string;
+  storyboardOnly: string;
+  videoEmpty: string;
+  // Assembly module
+  assemblyTitle: string;
+  assemblyDesc: string;
+  buildAssemblyBtn: string;
+  totalDurationLabel: string;
+  resolutionLabel: string;
+  downloadFfmpeg: string;
+  downloadEdl: string;
+  downloadTimeline: string;
+  assemblyEmpty: string;
+  // QA module
+  qaTitle: string;
+  qaDesc: string;
+  runQABtn: string;
+  qaPassed: string;
+  qaDriftDetected: string;
+  applyQAFixes: string;
+  qaEmpty: string;
+  driftItemsLabel: string;
 }
 
 export const translations: Record<SupportedLanguage, Translations> = {
@@ -267,7 +336,69 @@ export const translations: Record<SupportedLanguage, Translations> = {
     imageProvider: "مزود توليد الصور",
     videoProvider: "مزود توليد الفيديو",
     apiKeyNotice: "يتم تخزين المفاتيح الحساسة في خادم التطبيق بصورة آمنة ولا يتم إرسالها إلى المتصفح أبداً.",
-    phaseApprovalNote: "تم تسليم المرحلة 1 بنجاح (نموذج البيانات، دليل المشروع، السيناريو، ومحرك الصوت). بانتظار موافقتكم للانتقال للمرحلة 2."
+    phaseApprovalNote: "المراحل الأربع متصلة في خط إنتاج واحد. اضغط تشغيل خط الإنتاج لتنفيذها كاملة، أو نفّذ أي مرحلة بمفردها من تبويبها.",
+    pipelineTitle: "خط الإنتاج الآلي (Pipeline)",
+    pipelineDesc: "تشغيل كل المراحل تلقائياً: الدليل ← السيناريو ← الصوت ← المراجع ← تفكيك اللقطات ← الإطارات ← الفيديو ← المونتاج ← فحص الجودة. يتم تخطي ما تم إنجازه مسبقاً.",
+    runPipeline: "تشغيل خط الإنتاج",
+    runPipelineFull: "تشغيل كامل (بدون تخطي)",
+    runningPipeline: "خط الإنتاج قيد التشغيل...",
+    cancelPipeline: "إيقاف",
+    forceRerun: "إعادة توليد كل شيء",
+    skipVideoStep: "تخطي توليد الفيديو (الأغلى)",
+    pipelineIdle: "لم يبدأ خط الإنتاج بعد.",
+    pipelineCompleted: "اكتمل خط الإنتاج بنجاح.",
+    pipelineFailedLabel: "توقف خط الإنتاج بسبب خطأ.",
+    pipelineCancelledLabel: "تم إيقاف خط الإنتاج.",
+    pipelineBudgetStop: "توقف خط الإنتاج: تم بلوغ حد الميزانية.",
+    offlineModeBanner: "لا يوجد مفتاح GEMINI_API_KEY. يعمل النظام بوضع غير متصل: نصوص ومخططات بديلة قابلة للمراجعة بدل مخرجات النماذج.",
+    activityLog: "سجل النشاط",
+    referencesTitle: "استوديو المراجع البصرية",
+    referencesDesc: "ورقة مرجعية لكل شخصية ولوحة لكل موقع. هذه الصور تُرفق مع كل إطار مفتاحي لاحقاً لتثبيت الهوية البصرية.",
+    generateReference: "توليد المرجع",
+    generateAllReferences: "توليد كل المراجع",
+    noReferenceYet: "لم يتم توليد مرجع بعد",
+    referenceApproved: "معتمد",
+    referencePlaceholder: "مخطط بديل (بدون نموذج صور)",
+    breakdownTitle: "تفكيك اللقطات (Stage 3)",
+    breakdownDesc: "تقسيم كل مشهد إلى إطارات مفتاحية ولقطات، بتوقيت مبني على المدة الصوتية الحقيقية المقاسة.",
+    generateBreakdownBtn: "توليد تفكيك اللقطات",
+    keyframesCount: "إطار مفتاحي",
+    shotsCount: "لقطة",
+    cameraLabel: "الكاميرا",
+    motionLabel: "موجه الحركة",
+    audioSliceLabel: "شريحة الصوت",
+    startFrameLabel: "إطار البداية",
+    endFrameLabel: "إطار النهاية",
+    breakdownEmpty: "لا يوجد تفكيك لقطات بعد. ولّد السيناريو والصوت أولاً ثم شغّل هذه المرحلة.",
+    imagesTitle: "توليد الإطارات المفتاحية",
+    imagesDesc: "كل إطار يُولَّد مع مراجع الشخصية والموقع والإطار السابق كمدخلات بصرية، لمنع الانحراف عبر الفيلم.",
+    generateKeyframeBtn: "توليد الإطار",
+    regenerateBtn: "إعادة التوليد",
+    imagesEmpty: "لا توجد إطارات مفتاحية. شغّل مرحلة تفكيك اللقطات أولاً.",
+    promptLabel: "الموجه",
+    referencesUsed: "المراجع المرفقة",
+    videoTitle: "توليد الفيديو (Image-to-Video)",
+    videoDesc: "كل لقطة تتحول إلى فيديو انطلاقاً من إطارها المفتاحي. عند غياب نموذج الفيديو تبقى اللقطة صورة ثابتة بتوقيتها.",
+    generateShotVideoBtn: "توليد الفيديو",
+    storyboardOnly: "صورة ثابتة (بدون نموذج فيديو)",
+    videoEmpty: "لا توجد لقطات بعد.",
+    assemblyTitle: "المونتاج والتصدير",
+    assemblyDesc: "بناء الخط الزمني الكامل وتصدير سكربت FFmpeg وملف EDL لاستيراده في أي برنامج مونتاج.",
+    buildAssemblyBtn: "بناء الخط الزمني",
+    totalDurationLabel: "المدة الإجمالية",
+    resolutionLabel: "الدقة",
+    downloadFfmpeg: "تنزيل سكربت FFmpeg",
+    downloadEdl: "تنزيل ملف EDL",
+    downloadTimeline: "تنزيل الخط الزمني JSON",
+    assemblyEmpty: "لم يُبنَ الخط الزمني بعد.",
+    qaTitle: "فحص الجودة ومكافحة الانحراف",
+    qaDesc: "يتحقق من أن كل موجه يحمل الوصف المقفل حرفياً من الدليل، ومن اكتمال المراجع والأصوات والإطارات.",
+    runQABtn: "تشغيل الفحص",
+    qaPassed: "لا يوجد انحراف — كل الموجهات مطابقة للدليل.",
+    qaDriftDetected: "تم رصد انحرافات تحتاج معالجة",
+    applyQAFixes: "تطبيق التصحيحات وإعادة التوليد",
+    qaEmpty: "لم يتم تشغيل الفحص بعد.",
+    driftItemsLabel: "عناصر الانحراف",
   },
   en: {
     appName: "LongForm Studio",
@@ -397,7 +528,69 @@ export const translations: Record<SupportedLanguage, Translations> = {
     imageProvider: "Image Generation Provider",
     videoProvider: "Video Generation Provider",
     apiKeyNotice: "API keys are securely held on the backend server and never exposed to the client browser.",
-    phaseApprovalNote: "Phase 1 is fully delivered and operational (Data Model, Bible Editor, Script, and Voice). Ready for user review and approval to proceed to Phase 2."
+    phaseApprovalNote: "All four phases are wired into one pipeline. Hit Run pipeline to produce everything end to end, or run any single stage from its own tab.",
+    pipelineTitle: "Automated Pipeline",
+    pipelineDesc: "Runs every stage end to end: Bible -> Script -> Voice -> References -> Shot breakdown -> Keyframes -> Video -> Assembly -> QA. Work already done is skipped.",
+    runPipeline: "Run pipeline",
+    runPipelineFull: "Full rerun (no skipping)",
+    runningPipeline: "Pipeline running...",
+    cancelPipeline: "Stop",
+    forceRerun: "Regenerate everything",
+    skipVideoStep: "Skip video generation (most expensive)",
+    pipelineIdle: "Pipeline has not been started yet.",
+    pipelineCompleted: "Pipeline completed.",
+    pipelineFailedLabel: "Pipeline stopped on an error.",
+    pipelineCancelledLabel: "Pipeline cancelled.",
+    pipelineBudgetStop: "Pipeline stopped: budget limit reached.",
+    offlineModeBanner: "No GEMINI_API_KEY configured. Running in offline mode: reviewable stand-in text and storyboards instead of model output.",
+    activityLog: "Activity log",
+    referencesTitle: "Visual Reference Studio",
+    referencesDesc: "A model sheet per character and a plate per location. These images are attached to every keyframe to lock visual identity.",
+    generateReference: "Generate reference",
+    generateAllReferences: "Generate all references",
+    noReferenceYet: "No reference generated yet",
+    referenceApproved: "Approved",
+    referencePlaceholder: "Storyboard stand-in (no image model)",
+    breakdownTitle: "Shot Breakdown (Stage 3)",
+    breakdownDesc: "Splits each scene into keyframes and shots, timed from the real measured audio duration.",
+    generateBreakdownBtn: "Generate shot breakdown",
+    keyframesCount: "keyframes",
+    shotsCount: "shots",
+    cameraLabel: "Camera",
+    motionLabel: "Motion prompt",
+    audioSliceLabel: "Audio slice",
+    startFrameLabel: "Start frame",
+    endFrameLabel: "End frame",
+    breakdownEmpty: "No shot breakdown yet. Generate the script and voice first, then run this stage.",
+    imagesTitle: "Keyframe Generation",
+    imagesDesc: "Each frame is generated with the character sheet, location plate and previous keyframe attached as visual references, which is what prevents drift.",
+    generateKeyframeBtn: "Generate frame",
+    regenerateBtn: "Regenerate",
+    imagesEmpty: "No keyframes yet. Run the shot breakdown stage first.",
+    promptLabel: "Prompt",
+    referencesUsed: "Attached references",
+    videoTitle: "Video Generation (Image-to-Video)",
+    videoDesc: "Every shot animates from its start keyframe. With no video model available the shot stays a timed still.",
+    generateShotVideoBtn: "Generate video",
+    storyboardOnly: "Timed still (no video model)",
+    videoEmpty: "No shots yet.",
+    assemblyTitle: "Assembly & Export",
+    assemblyDesc: "Builds the full timeline and exports an FFmpeg script plus an EDL you can import into any NLE.",
+    buildAssemblyBtn: "Build timeline",
+    totalDurationLabel: "Total duration",
+    resolutionLabel: "Resolution",
+    downloadFfmpeg: "Download FFmpeg script",
+    downloadEdl: "Download EDL",
+    downloadTimeline: "Download timeline JSON",
+    assemblyEmpty: "Timeline has not been built yet.",
+    qaTitle: "Quality & Drift Control",
+    qaDesc: "Verifies every prompt still carries the bible's locked description verbatim, and that references, audio and frames are complete.",
+    runQABtn: "Run QA",
+    qaPassed: "No drift — every prompt matches the bible.",
+    qaDriftDetected: "Drift detected, needs attention",
+    applyQAFixes: "Apply corrections and re-render",
+    qaEmpty: "QA has not been run yet.",
+    driftItemsLabel: "Drift items",
   },
   es: {
     appName: "LongForm Studio",
@@ -527,6 +720,68 @@ export const translations: Record<SupportedLanguage, Translations> = {
     imageProvider: "Proveedor de Imágenes",
     videoProvider: "Proveedor de Video",
     apiKeyNotice: "Las claves API se mantienen seguras en el servidor y nunca se envían al navegador.",
-    phaseApprovalNote: "Fase 1 completada con éxito (Modelo de Datos, Biblia, Guion y Motor de Voz). Listo para revisión y aprobación del usuario para la Fase 2."
+    phaseApprovalNote: "Las cuatro fases están conectadas en un solo pipeline. Pulsa Ejecutar pipeline para producirlo todo, o ejecuta cualquier etapa desde su pestaña.",
+    pipelineTitle: "Pipeline automatizado",
+    pipelineDesc: "Ejecuta todas las etapas: Biblia -> Guion -> Voz -> Referencias -> Desglose -> Fotogramas -> Video -> Montaje -> QA. Lo ya hecho se omite.",
+    runPipeline: "Ejecutar pipeline",
+    runPipelineFull: "Reejecución completa",
+    runningPipeline: "Pipeline en ejecución...",
+    cancelPipeline: "Detener",
+    forceRerun: "Regenerar todo",
+    skipVideoStep: "Omitir generación de video (lo más caro)",
+    pipelineIdle: "El pipeline aún no se ha iniciado.",
+    pipelineCompleted: "Pipeline completado.",
+    pipelineFailedLabel: "El pipeline se detuvo por un error.",
+    pipelineCancelledLabel: "Pipeline cancelado.",
+    pipelineBudgetStop: "Pipeline detenido: límite de presupuesto alcanzado.",
+    offlineModeBanner: "Sin GEMINI_API_KEY. Modo sin conexión: textos y storyboards sustitutos revisables en lugar de la salida de los modelos.",
+    activityLog: "Registro de actividad",
+    referencesTitle: "Estudio de referencias visuales",
+    referencesDesc: "Una hoja de modelo por personaje y una placa por localización. Estas imágenes se adjuntan a cada fotograma clave.",
+    generateReference: "Generar referencia",
+    generateAllReferences: "Generar todas las referencias",
+    noReferenceYet: "Sin referencia generada",
+    referenceApproved: "Aprobada",
+    referencePlaceholder: "Sustituto de storyboard (sin modelo de imagen)",
+    breakdownTitle: "Desglose de planos (Etapa 3)",
+    breakdownDesc: "Divide cada escena en fotogramas clave y planos, con tiempos basados en la duración real del audio.",
+    generateBreakdownBtn: "Generar desglose",
+    keyframesCount: "fotogramas clave",
+    shotsCount: "planos",
+    cameraLabel: "Cámara",
+    motionLabel: "Prompt de movimiento",
+    audioSliceLabel: "Segmento de audio",
+    startFrameLabel: "Fotograma inicial",
+    endFrameLabel: "Fotograma final",
+    breakdownEmpty: "Aún no hay desglose. Genera el guion y la voz primero.",
+    imagesTitle: "Generación de fotogramas clave",
+    imagesDesc: "Cada fotograma se genera con la hoja del personaje, la placa de localización y el fotograma anterior como referencias.",
+    generateKeyframeBtn: "Generar fotograma",
+    regenerateBtn: "Regenerar",
+    imagesEmpty: "Sin fotogramas clave. Ejecuta primero el desglose de planos.",
+    promptLabel: "Prompt",
+    referencesUsed: "Referencias adjuntas",
+    videoTitle: "Generación de video (Image-to-Video)",
+    videoDesc: "Cada plano se anima desde su fotograma inicial. Sin modelo de video el plano queda como imagen fija con su duración.",
+    generateShotVideoBtn: "Generar video",
+    storyboardOnly: "Imagen fija (sin modelo de video)",
+    videoEmpty: "Aún no hay planos.",
+    assemblyTitle: "Montaje y exportación",
+    assemblyDesc: "Construye la línea de tiempo y exporta un script de FFmpeg y un EDL para cualquier editor.",
+    buildAssemblyBtn: "Construir línea de tiempo",
+    totalDurationLabel: "Duración total",
+    resolutionLabel: "Resolución",
+    downloadFfmpeg: "Descargar script FFmpeg",
+    downloadEdl: "Descargar EDL",
+    downloadTimeline: "Descargar timeline JSON",
+    assemblyEmpty: "La línea de tiempo aún no se ha construido.",
+    qaTitle: "Control de calidad y deriva",
+    qaDesc: "Verifica que cada prompt conserve la descripción bloqueada de la biblia literalmente y que todo esté completo.",
+    runQABtn: "Ejecutar QA",
+    qaPassed: "Sin deriva — todos los prompts coinciden con la biblia.",
+    qaDriftDetected: "Deriva detectada, requiere atención",
+    applyQAFixes: "Aplicar correcciones y regenerar",
+    qaEmpty: "QA aún no ejecutado.",
+    driftItemsLabel: "Elementos con deriva",
   }
 };

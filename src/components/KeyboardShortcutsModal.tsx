@@ -1,5 +1,5 @@
 import React from 'react';
-import { Command, X, Save, BookOpen, FileText, Volume2, FolderKanban, Keyboard } from 'lucide-react';
+import { Command, X, Save, BookOpen, FileText, FolderKanban, Keyboard, Play } from 'lucide-react';
 import { Translations } from '../i18n';
 
 interface Props {
@@ -37,10 +37,10 @@ export const KeyboardShortcutsModal: React.FC<Props> = ({ isOpen, onClose, t }) 
       color: 'text-purple-400 bg-purple-500/10 border-purple-500/30',
     },
     {
-      keys: ['Ctrl', '1 / 2 / 3'],
-      macKeys: ['⌘', '1 / 2 / 3'],
+      keys: ['Ctrl', '1 … 9'],
+      macKeys: ['⌘', '1 … 9'],
       action: 'Quick Module Navigation',
-      desc: '1: Bible Editor &bull; 2: Script Editor &bull; 3: Voice Studio',
+      desc: '1 Bible · 2 Script · 3 Voice · 4 References · 5 Breakdown · 6 Keyframes · 7 Video · 8 Assembly · 9 QA',
       icon: Command,
       color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
     },
@@ -51,6 +51,14 @@ export const KeyboardShortcutsModal: React.FC<Props> = ({ isOpen, onClose, t }) 
       desc: 'Return to the projects catalog to create or open projects.',
       icon: FolderKanban,
       color: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
+    },
+    {
+      keys: ['Ctrl', 'Enter'],
+      macKeys: ['⌘', 'Enter'],
+      action: 'Run the full production pipeline',
+      desc: 'Runs every stage end to end, skipping work that is already done.',
+      icon: Play,
+      color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
     },
     {
       keys: ['?'],

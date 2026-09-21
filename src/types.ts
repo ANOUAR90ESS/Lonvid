@@ -87,8 +87,91 @@ export interface Shot {
   motion_prompt: string;
   audio_slice: [number, number];
   video_url?: string;
-  status: 'pending' | 'generating' | 'completed' | 'failed';
+  /** 'storyboard' = no video model available, the shot stays a timed still. */
+  status: 'pending' | 'generating' | 'completed' | 'storyboard' | 'failed';
   cost?: number;
+}
+
+export interface CostEntry {
+  at: string;
+  kind: string;
+  amount: number;
+  detail: string;
+}
+
+export interface TimelineEntry {
+  shot_id: string;
+  scene_id: string;
+  timeline_in: number;
+  timeline_out: number;
+  duration_s: number;
+  video_url: string | null;
+  still_url: string | null;
+  audio_url: string | null;
+  audio_in: number;
+  audio_out: number;
+  source: 'video' | 'still';
+}
+
+export interface Assembly {
+  generated_at: string;
+  total_duration_s: number;
+  total_duration_label: string;
+  resolution: string;
+  shot_count: number;
+  video_shot_count: number;
+  still_shot_count: number;
+  timeline: TimelineEntry[];
+  ffmpeg_script: string;
+  edl: string;
+}
+
+export interface DriftItem {
+  item_id: string;
+  item_type: 'character' | 'location' | 'style';
+  drift_details: string;
+  corrected_prompt: string;
+}
+
+export interface QAReport {
+  status: 'passed' | 'drift_detected';
+  checked_at: string;
+  checked_keyframes: number;
+  checked_shots: number;
+  drift_items: DriftItem[];
+}
+
+export type PipelineStepKey =
+  | 'bible'
+  | 'script'
+  | 'voice'
+  | 'references'
+  | 'breakdown'
+  | 'keyframes'
+  | 'video'
+  | 'assembly'
+  | 'qa';
+
+export interface PipelineStep {
+  key: PipelineStepKey;
+  label: string;
+  phase: number;
+  status: 'pending' | 'running' | 'done' | 'skipped' | 'failed';
+  progress: number;
+  total: number;
+  message: string;
+  error?: string;
+}
+
+export interface PipelineJob {
+  id: string;
+  project_id: string;
+  status: 'running' | 'completed' | 'failed' | 'cancelled' | 'budget_exceeded';
+  steps: PipelineStep[];
+  current_step: PipelineStepKey | null;
+  created_at: string;
+  finished_at?: string;
+  log: Array<{ at: string; level: 'info' | 'warn' | 'error'; message: string }>;
 }
 
 export interface PhaseProgress {
@@ -114,6 +197,9 @@ export interface Project {
   created_at: string;
   updated_at: string;
   phase_progress: PhaseProgress;
+  assembly?: Assembly;
+  qa?: QAReport;
+  cost_log?: CostEntry[];
 }
 
 export interface ProviderSettings {
@@ -122,9 +208,14 @@ export interface ProviderSettings {
   voice_provider: 'gemini_tts' | 'elevenlabs' | 'native_synth';
   voice_model: string;
   image_provider: 'gemini';
+  image_model?: string;
   video_provider: 'veo';
+  video_model?: string;
   has_gemini_key: boolean;
   has_elevenlabs_key: boolean;
+  /** True when no Gemini key is configured: the pipeline runs on offline stand-ins. */
+  offline_mode?: boolean;
+  cost_table?: Record<string, number>;
 }
 
 export interface DirectorAIBibleOutput {
